@@ -1,0 +1,44 @@
+﻿@model IEnumerable<NewsBlog.Models.BlogItem>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row" style="padding-top: 10px; padding-left: 15px;">
+
+    <button type="button" class="btn btn-info">
+        @Html.ActionLink("Добавить Новость", "CreateNews")
+    </button>
+</div>
+
+<div class="row" style="padding-top: 10px;">
+    @foreach (var blog in Model)
+    {
+
+        <div class="col-md-4">
+            <mat-card style="max-width: 400px">
+                <mat-card-header>
+                    <mat-card-title>
+                        @Html.DisplayFor(modelItem => blog.Name)
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                        @Html.DisplayFor(modelItem => blog.Category)
+                    </mat-card-subtitle>
+                </mat-card-header>
+                @Html.Raw("<img style='width:380px; height:260px;' src=\"data:image/jpeg;base64,"
+                          + Convert.ToBase64String(blog.Image) + "\" />")
+                <mat-card-content>
+                    <p>
+                        @Html.DisplayFor(modelItem => blog.Description)
+                    </p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button>LIKE</button>
+                    <button mat-button>SHARE</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+
+    }
+</div>
+

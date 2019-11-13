@@ -1,0 +1,45 @@
+﻿@model NewsBlog.Models.BlogItem
+
+@{
+    ViewBag.Title = "CreateNews";
+}
+
+<h2>CreateNews</h2>
+
+@using (Html.BeginForm("CreateNews", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="col-xs-12">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Заголовок статьи" @(Html.EditorFor(model => model.Name)) />
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Краткая информация" @(Html.EditorFor(model => model.Description)) />
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Категория" @(Html.EditorFor(model => model.Category)) />
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Тэг" @(Html.EditorFor(model => model.Tags)) />
+        </div>
+    </div>
+
+    <div class="editor-field">
+        <input type="file" name="uploadImage" />
+    </div>
+
+    <div class="col-xs-12">
+        <div class="form-group">
+            <input type="submit" value="Добавить" />
+        </div>
+    </div>
+
+}
