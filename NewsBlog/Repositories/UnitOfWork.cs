@@ -9,7 +9,7 @@ namespace NewsBlog.Repositories
             private BlogContext _db = new BlogContext();
             private BlogRepository _blogRepository;
 
-            public BlogRepository Blogs
+            public BlogRepository BlogItems
             {
                 get
                 {

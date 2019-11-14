@@ -1,31 +1,51 @@
-﻿@model IEnumerable<NewsBlog.Models.BlogItem>
- 
+﻿@using NewsBlog.Models
+@model IEnumerable<NewsBlog.Models.BlogItem>
+
 @{
     ViewBag.Title = "Index";
 }
- 
-<div class="row" style="padding-top: 10px;">
+
+<div class="row" style="padding-top: 10px; flex-wrap: wrap; display: flex;">
     @foreach (var blog in Model)
     {
-
-        <div class="col-md-4">
-            <p>
+        <div class="col-lg-4">
+            <div style="max-width: 400px">
+                <div class="col-md-6" style="width: 100%; display: flex; justify-content: space-between;">
+                    <div>
+                        <div>
+                            @Html.DisplayFor(modelItem => blog.Name)
+                        </div>
+                        <div>
+                            @Html.DisplayFor(modelItem => blog.Category)
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            drop menu
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a style="display: block;" href="#">Action</a>
+                            <a style="display: block;" href="#">Another action</a>
+                            <a style="display: block;" href="#">Something else here</a>
+                        </div>
+                    </div>
+                </div>
                 @Html.Raw("<img style='width:380px; height:260px;' src=\"data:image/jpeg;base64,"
                           + Convert.ToBase64String(blog.Image) + "\" />")
-            </p>
-            <h6>
-                @Html.DisplayFor(modelItem => blog.Name)
-            </h6>
-            <h5>
-                @Html.DisplayFor(modelItem => blog.Description)
-            </h5>
-            <h5>
-                @Html.DisplayFor(modelItem => blog.Tags)
-            </h5>
-            <h5>
-                @Html.DisplayFor(modelItem => blog.Category)
-            </h5>
+                <div>
+                    <p>
+                        @Html.DisplayFor(modelItem => blog.Description)
+                    </p>
+                </div>
+                <div>
+                    @foreach (Tag t in blog.Tags)
+                    {
+                        <button mat-button>
+                            @t.TagName
+                        </button>
+                    }
+                </div>
+            </div>
         </div>
-
     }
 </div>

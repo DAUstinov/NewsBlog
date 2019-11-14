@@ -1,7 +1,9 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NewsBlog.Models;
+using NewsBlog.Services;
 
 namespace NewsBlog.Controllers
 {
@@ -9,14 +11,18 @@ namespace NewsBlog.Controllers
      {
 
          private readonly BlogContext _db = new BlogContext();
+         private readonly BlogService _blogService = new BlogService();
+
+         
          public ActionResult Index()
          {
-             return View(_db.BlogItems);
+             return View(_db.BlogItems.ToList());
          }
 
          public ActionResult Admin()
          {
-             return View(_db.BlogItems);
+             
+             return View(_db.BlogItems.ToList());
          }
 
          public ActionResult Create()
@@ -46,9 +52,9 @@ namespace NewsBlog.Controllers
              return View(pic);
          }
 
-         public ActionResult CreateNews()
+         public ActionResult CreateNews(BlogItem blog)
          {
-             return View();
+             return View(blog);
          }
 
          [HttpPost]
@@ -65,12 +71,27 @@ namespace NewsBlog.Controllers
                 // установка массива байтов
                 blog.Image = imageData;
 
-                _db.BlogItems.Add(blog);
-                _db.SaveChanges();
+                _blogService.AddItem(blog);
+
 
                 return RedirectToAction("Admin");
             }
             return View(blog);
+         }
+
+         [HttpGet]
+         public ActionResult Article(int id)
+         {
+             ViewBag.NewsId = id;
+        
+             return View();
+         }
+        
+         [HttpPost , ActionName("Article")]
+         public ActionResult Article(int id)
+         {
+             _blogService.Article();
+             return RedirectResult();
          }
     }
 }

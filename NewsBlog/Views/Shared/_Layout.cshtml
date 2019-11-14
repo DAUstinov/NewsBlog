@@ -30,11 +30,11 @@
                     @if (!Context.User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Reg", "Register", "Account")</li>
-                        <li class="invisible">@Html.ActionLink("Sign in", "Login", "Account")</li>
+                        <li style="display: none;">@Html.ActionLink("Sign in", "Login", "Account")</li>
                     }
                     else
                     {
-                        <li class="invisible">@Html.ActionLink("Reg", "Register", "Account")</li>
+                        <li style="display: none;">@Html.ActionLink("Reg", "Register", "Account")</li>
                         <li>@Html.ActionLink("Sign in", "Login", "Account")</li>
                     }
                     <li></li>

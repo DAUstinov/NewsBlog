@@ -257,6 +257,7 @@
     <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Home\CreateNews.cshtml" />
+    <Content Include="Views\Home\Article.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

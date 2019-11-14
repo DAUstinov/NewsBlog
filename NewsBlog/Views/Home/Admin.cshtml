@@ -1,44 +1,65 @@
-﻿@model IEnumerable<NewsBlog.Models.BlogItem>
+﻿@using NewsBlog.Models
+@model IEnumerable<NewsBlog.Models.BlogItem>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<div class="row" style="padding-top: 10px; padding-left: 15px;">
+<div class="row" style="padding-top: 10px; padding-left: 15px; display: flex; ">
 
+    <button type="button" class="btn btn-info">
+        @Html.ActionLink("Добавить Новость", "CreateNews")
+    </button>
     <button type="button" class="btn btn-info">
         @Html.ActionLink("Добавить Новость", "CreateNews")
     </button>
 </div>
 
-<div class="row" style="padding-top: 10px;">
-    @foreach (var blog in Model)
-    {
 
-        <div class="col-md-4">
-            <mat-card style="max-width: 400px">
-                <mat-card-header>
-                    <mat-card-title>
-                        @Html.DisplayFor(modelItem => blog.Name)
-                    </mat-card-title>
-                    <mat-card-subtitle>
-                        @Html.DisplayFor(modelItem => blog.Category)
-                    </mat-card-subtitle>
-                </mat-card-header>
-                @Html.Raw("<img style='width:380px; height:260px;' src=\"data:image/jpeg;base64,"
-                          + Convert.ToBase64String(blog.Image) + "\" />")
-                <mat-card-content>
-                    <p>
-                        @Html.DisplayFor(modelItem => blog.Description)
-                    </p>
-                </mat-card-content>
-                <mat-card-actions>
-                    <button mat-button>LIKE</button>
-                    <button mat-button>SHARE</button>
-                </mat-card-actions>
-            </mat-card>
-        </div>
-
-    }
-</div>
-
+<div class="row" style="padding-top: 10px; flex-wrap: wrap; display: flex;">
+        @foreach (var blog in Model)
+        {
+            <div class="col-lg-4">
+                <div  style="max-width: 400px">
+                    <div class="col-md-6" style="width: 100%; display: flex; justify-content: space-between;">
+                        <div>
+                            <div>
+                                @Html.DisplayFor(modelItem => blog.Name)
+                            </div>
+                            <div>
+                                @Html.DisplayFor(modelItem => blog.Category)
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                drop menu
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a style="display: block;" href="#">Action</a>
+                                <a style="display: block;" href="#">Another action</a>
+                                <a style="display: block;" href="#">Something else here</a>
+                            </div>
+                        </div>
+                    </div>
+                    @Html.
+                    <a href="/Home/CreateNews/@blog.NewsId">
+                    @Html.Raw("<img style='width:380px; height:260px;' src=\"data:image/jpeg;base64,"
+                              + Convert.ToBase64String(blog.Image) + "\" />")
+                    </a>
+                    <div>
+                        <p>
+                            @Html.DisplayFor(modelItem => blog.Description)
+                        </p>
+                    </div>
+                    <div>
+                        @foreach (Tag t in blog.Tags)
+                        {
+                            <div style="flex-wrap: wrap; display: flex;">
+                                @t.TagName
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
