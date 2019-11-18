@@ -5,43 +5,34 @@
     ViewBag.Title = "CreateNews";
 }
 
+<div style="height: 100%; width: 100%; display: flex; flex-direction: column; align-items: center;">
 <h2>CreateNews</h2>
 
-@using (Html.BeginForm("CreateNews", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    <div class="col-xs-12">
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Заголовок статьи" @(Html.EditorFor(model => model.Name)) />
-        </div>
-    </div>
-
-    <div class="col-xs-12">
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Краткая информация" @(Html.EditorFor(model => model.Description)) />
-        </div>
-    </div>
-
-    <div class="col-xs-12">
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Категория" @(Html.EditorFor(model => model.Category)) />
-        </div>
-    </div>
-
-    <div class="col-xs-12">
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Тэг" @(Html.EditorFor(model => model.Tags)) />
-        </div>
-    </div>
-
-    <div class="col-xs-12">
-    <div class="editor-field">
-        <input type="file" name="uploadImage" />
-    </div>
+    @using (Html.BeginForm("CreateNews", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <form>
+            <div class="form-group">
+                <div>Название статьи</div>
+                @(Html.EditorFor(model => model.Name))
+            </div>
+            <div class="form-group">
+                <div>Категория</div>
+                @(Html.EditorFor(model => model.Category))
+            </div>
+            <div class="form-group">
+                <div>Краткая информация</div>
+                @(Html.EditorFor(model => model.ShortDescription))
+            </div>
+            <div class="form-group">
+                <div>Текст статьи</div>
+                @(Html.EditorFor(model => model.Description))
+            </div>
+            <div class="form-group">
+                <input type="file" name="uploadImage" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Добавить" />
+            </div>
+        </form>
+    }
 </div>
-
-<div class="col-xs-12">
-    <div class="form-group">
-        <input type="submit" value="Добавить" />
-    </div>
-</div>
-}

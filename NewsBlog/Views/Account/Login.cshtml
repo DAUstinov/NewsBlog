@@ -1,11 +1,13 @@
-﻿@model NewsBlog.IdentityModel.LoginModel
+﻿
+@model NewsBlog.IdentityModel.LoginModel
 
 @{
     ViewBag.Title = "Login";
 }
 
-<h2>Вход на сайт</h2>
+<div style="height: 100%; width: 100%; display: flex; flex-direction: column; align-items: center;">
 
+<h2>Вход на сайт</h2>
 
 @using (Html.BeginForm())
 {
@@ -25,3 +27,4 @@
         <p><button type="submit">Войти</button></p>
     </div>
 }
+</div>

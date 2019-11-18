@@ -1,7 +1,61 @@
-﻿
-@{
-    ViewBag.Title = "Article";
-}
+﻿@using NewsBlog.Models
+@model NewsBlog.Models.BlogItem
 
-<h2>Article</h2>
+<h2>@Model.Name</h2>
 
+<div class="row" style="padding-top: 10px; flex-wrap: wrap; display: flex;">
+    <div style="max-width: 100%">
+        <div style="width: 100%; display: flex; justify-content: space-between;">
+            <div>
+                <div>
+                    @Html.DisplayFor(modelItem => Model.Category)
+                </div>
+            </div>
+            @if (Context.User.Identity.IsAuthenticated)
+                {
+                    <div class="dropdown">
+                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            V
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a style="display: block;" href="/Home/DeleteArticle/@Model.NewsId">Удалить</a>
+                            <a style="display: block;" href="/Home/UpdateArticle/@Model.NewsId">Изменить </a>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="dropdown" style="display:none">
+                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            drop menu
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a style="display: block;" href="#">Action</a>
+                            <a style="display: block;" href="#">Another action</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        <div style="width: 100%; display: flex; justify-content: space-between;" >
+            <div>
+                @Html.Raw("<img style='width:780px; height:460px;' src=\"data:image/jpeg;base64,"
+                          + Convert.ToBase64String(Model.Image) + "\" />")
+            </div>
+            <div style="margin-left: 10px; display: flex; flex-direction: column;">
+                <div>
+                    <p>
+                        @Html.DisplayFor(modelItem => Model.Description)
+                    </p>
+                </div>
+                <div style="margin-top:auto">
+                    @foreach (Tag t in Model.Tags)
+                    {
+                        <button mat-button disabled="disabled">
+                            @t.TagName
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,6 +8,17 @@ namespace NewsBlog.Repositories
 
             private BlogContext _db = new BlogContext();
             private BlogRepository _blogRepository;
+            private TagRepository _tagRepository;
+
+            public TagRepository Tags
+            {
+                get
+                {
+                    if (_tagRepository ==null)
+                        _tagRepository = new TagRepository(_db);
+                    return _tagRepository;
+                }
+            }
 
             public BlogRepository BlogItems
             {

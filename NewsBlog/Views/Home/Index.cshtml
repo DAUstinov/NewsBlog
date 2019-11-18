@@ -1,12 +1,27 @@
 ﻿@using NewsBlog.Models
-@model IEnumerable<NewsBlog.Models.BlogItem>
+@using NewsBlog.Helpers
+@model NewsBlog.Models.PageViewModel
 
-@{
-    ViewBag.Title = "Index";
-}
+<div class="row" style="padding-top: 10px; padding-left: 15px; justify-content: space-between;display: flex">
+    <div>
+        <form method="get">
+            <div class="form-inline">
+                <label class="control-label">Категории: </label>
+                @Html.DropDownList("Category", Model.Category.Items as List<SelectListItem>,
+                    htmlAttributes: new { @class = "form-control" })
+                <input type="submit" value="Фильтр" class="btn btn-default" />
+
+                <label class="control-label">Тэги: </label>
+                @Html.DropDownListFor(d => d.TagName, Model.TagName.Items as List<SelectListItem>,
+                    htmlAttributes: new { @class = "form-control" })
+                <input type="submit" value="Фильтр" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
 
 <div class="row" style="padding-top: 10px; flex-wrap: wrap; display: flex;">
-    @foreach (var blog in Model)
+    @foreach (var blog in Model.BlogItems)
     {
         <div class="col-lg-4">
             <div style="max-width: 400px">
@@ -19,28 +34,20 @@
                             @Html.DisplayFor(modelItem => blog.Category)
                         </div>
                     </div>
-                    <div class="dropdown">
-                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            drop menu
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a style="display: block;" href="#">Action</a>
-                            <a style="display: block;" href="#">Another action</a>
-                            <a style="display: block;" href="#">Something else here</a>
-                        </div>
-                    </div>
                 </div>
-                @Html.Raw("<img style='width:380px; height:260px;' src=\"data:image/jpeg;base64,"
-                          + Convert.ToBase64String(blog.Image) + "\" />")
+                <a href="/Home/Article/@blog.NewsId">
+                    @Html.Raw("<img style='width:380px; height:260px;' src=\"data:image/jpeg;base64,"
+                              + Convert.ToBase64String(blog.Image) + "\" />")
+                </a>
                 <div>
                     <p>
-                        @Html.DisplayFor(modelItem => blog.Description)
+                        @Html.DisplayFor(modelItem => blog.ShortDescription)
                     </p>
                 </div>
                 <div>
                     @foreach (Tag t in blog.Tags)
                     {
-                        <button mat-button>
+                        <button mat-button disabled="disabled">
                             @t.TagName
                         </button>
                     }
@@ -48,4 +55,9 @@
             </div>
         </div>
     }
+</div>
+
+<br />
+<div class="btn-group">
+    @Html.PageLinks(Model.PageInfo , x => Url.Action("Index", new { page = x }))
 </div>

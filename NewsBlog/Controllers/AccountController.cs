@@ -13,13 +13,7 @@ namespace NewsBlog.Controllers
 {
     public class AccountController : Controller
     {
-        private ApplicationUserManager UserManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-        }
+        private ApplicationUserManager UserManager => HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
         public ActionResult Register()
         {
@@ -47,13 +41,7 @@ namespace NewsBlog.Controllers
             }
             return View(model);
         }
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
+        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
         public ActionResult Login(string returnUrl)
         {

@@ -122,3 +122,4 @@ C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\bin\System.Numerics.Vectors.xml
 C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\bin\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\bin\System.Text.Encodings.Web.xml
 C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\obj\Debug\NewsBlog.Migrations.Tags.resources
+C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\obj\Debug\NewsBlog.Migrations.ShortDescription.resources

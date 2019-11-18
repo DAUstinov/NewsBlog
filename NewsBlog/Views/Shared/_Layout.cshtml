@@ -9,10 +9,8 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body style="background-image: url('@Url.Content("~/Content/Images/_1412-473.jpg")'); 
-                                      background-repeat:no-repeat;
-                                      background-size:cover;">
-    <div class="navbar navbar-inverse navbar-fixed-top" style="color: aqua;">
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -27,15 +25,15 @@
                    
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    @if (!Context.User.Identity.IsAuthenticated)
+                    @if (Context.User.Identity.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Reg", "Register", "Account")</li>
-                        <li style="display: none;">@Html.ActionLink("Sign in", "Login", "Account")</li>
+                        <li>@Html.ActionLink("Добавить редактора", "Register", "Account")</li>
+                        <li style="display: none">@Html.ActionLink("Вход", "Login", "Account")</li>
                     }
                     else
                     {
-                        <li style="display: none;">@Html.ActionLink("Reg", "Register", "Account")</li>
-                        <li>@Html.ActionLink("Sign in", "Login", "Account")</li>
+                        <li style="display: none">@Html.ActionLink("Добавить редактора", "Register", "Account")</li>
+                        <li>@Html.ActionLink("Вход", "Login", "Account")</li>
                     }
                     <li></li>
                 </ul>
@@ -45,9 +43,6 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - мое приложение ASP.NET</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
