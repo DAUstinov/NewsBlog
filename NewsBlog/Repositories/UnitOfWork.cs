@@ -1,39 +1,79 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Threading.Tasks;
+using NewsBlog.Interfaces;
 using NewsBlog.Models;
+
 
 namespace NewsBlog.Repositories
 {
-        public class UnitOfWork
+        public class UnitOfWork : IUnitOfWork
         {
+            private readonly BlogContext _dbContext;
 
-            private BlogContext _db = new BlogContext();
-            private BlogRepository _blogRepository;
-            private TagRepository _tagRepository;
+                private readonly IDictionary<Type, object> _repositories;
+                private readonly IDictionary<Type, Type> _customRepositoryTypes;
 
-            public TagRepository Tags
-            {
-                get
+
+                public UnitOfWork(BlogContext dbContext)
                 {
-                    if (_tagRepository ==null)
-                        _tagRepository = new TagRepository(_db);
-                    return _tagRepository;
-                }
-            }
+                    _dbContext = dbContext;
 
-            public BlogRepository BlogItems
-            {
-                get
+                    _repositories = new Dictionary<Type, object>();
+                    _customRepositoryTypes = new Dictionary<Type, Type>();
+                }
+
+
+                public IRepository<T> GetRepository<T>()
+                    where T : class
                 {
-                    if (_blogRepository == null)
-                        _blogRepository = new BlogRepository(_db);
-                    return _blogRepository;
-                }
-            }
+                    if (!_repositories.TryGetValue(typeof(T), out var repository))
+                    {
+                        repository = _customRepositoryTypes.TryGetValue(typeof(T), out var repositoryType)
+                            ? Activator.CreateInstance(repositoryType, _dbContext)
+                            : new Repository<T>(_dbContext);
 
-            public void Save()
-            {
-                _db.SaveChanges();
-            }
+                        _repositories.Add(typeof(T), repository);
+                    }
+
+                    return (IRepository<T>)repository;
+                }
+
+                public void SaveChanges()
+                { 
+                    _dbContext.SaveChangesAsync();
+                }
+        
+
+        //private BlogContext _db = new BlogContext();
+        //    private BlogRepository _blogRepository;
+        //    private TagRepository _tagRepository;
+        //
+        //    public TagRepository Tags
+        //    {
+        //        get
+        //        {
+        //            if (_tagRepository ==null)
+        //                _tagRepository = new TagRepository(_db);
+        //            return _tagRepository;
+        //        }
+        //    }
+        //
+        //    public BlogRepository BlogItems
+        //    {
+        //        get
+        //        {
+        //            if (_blogRepository == null)
+        //                _blogRepository = new BlogRepository(_db);
+        //            return _blogRepository;
+        //        }
+        //    }
+        //
+        //    public void Save()
+        //    {
+        //        _db.SaveChanges();
+        //    }
 
             private bool _disposed = false;
 
@@ -43,7 +83,7 @@ namespace NewsBlog.Repositories
                 {
                     if (disposing)
                     {
-                        _db.Dispose();
+                        _dbContext.Dispose();
                     }
                     this._disposed = true;
                 }
@@ -56,4 +96,5 @@ namespace NewsBlog.Repositories
             }
 
         }
-    }
+
+}

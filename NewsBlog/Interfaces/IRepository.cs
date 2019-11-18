@@ -1,14 +1,14 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace NewsBlog.Interfaces
 {
-    interface IRepository<T> where T : class
+    public interface IRepository<T> where T : class
     {
-        IEnumerable<T> GetAll();
+        Task<List<T>> GetAll();
         T Get(int id);
         void Create(T item);
-        void Update(T item);
-        void Delete(int id);
+        void Update(T id);
+        void Delete(T id);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using NewsBlog.Models;
 using NewsBlog.Repositories;
 
@@ -8,43 +9,44 @@ namespace NewsBlog.Services
     {
         private readonly UnitOfWork _unitOfWork;
 
-        public BlogService()
+        public BlogService(BlogContext blogContext)
         {
-            _unitOfWork = new UnitOfWork();
+            this._unitOfWork = new UnitOfWork(blogContext);
         }
 
-        public void SaveArticle(BlogItem blog)
+        public Task<List<BlogItem>> GetNews()
         {
-            _unitOfWork.BlogItems.SaveArticle(blog);
-        }
-        public IEnumerable<BlogItem> GetNews()
-        {
-            return _unitOfWork.BlogItems.GetAll();
+            return _unitOfWork.GetRepository<BlogItem>().GetAll();
         }
 
-        public BlogItem Article(int id)
+        public BlogItem GetArticle(int id)
         {
-            return _unitOfWork.BlogItems.Get(id);
+            return _unitOfWork.GetRepository<BlogItem>().Get(id);
+        }
+
+        public void AddTags(Tag tags)
+        {
+            _unitOfWork.GetRepository<Tag>().Create(tags);
+            _unitOfWork.SaveChanges();
         }
 
         public void AddItem(BlogItem item)
         {
-            _unitOfWork.BlogItems.Create(item);
-            _unitOfWork.Save();
+            _unitOfWork.GetRepository<BlogItem>().Create(item);
+            _unitOfWork.SaveChanges();
         }
 
         public void DeleteArticle(int id)
         {
-            _unitOfWork.BlogItems.Delete(id);
-            _unitOfWork.Save();
+            _unitOfWork.GetRepository<BlogItem>().Delete(GetArticle(id));
+            _unitOfWork.SaveChanges();
         }
 
         public void UpdateArticle(BlogItem item)
         {
-            _unitOfWork.BlogItems.Update(item);
-            _unitOfWork.Save();
+            _unitOfWork.GetRepository<BlogItem>().Update(item);
+            _unitOfWork.SaveChanges();
         }
-
 
     }
 }

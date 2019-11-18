@@ -123,3 +123,9 @@ C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\bin\System.Runtime.CompilerServices
 C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\bin\System.Text.Encodings.Web.xml
 C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\obj\Debug\NewsBlog.Migrations.Tags.resources
 C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\obj\Debug\NewsBlog.Migrations.ShortDescription.resources
+C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\bin\CommonServiceLocator.dll
+C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\bin\Microsoft.Practices.Unity.Configuration.dll
+C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\bin\Microsoft.Practices.Unity.dll
+C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\bin\Unity.Mvc3.dll
+C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\bin\Microsoft.Practices.Unity.xml
+C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\bin\Microsoft.Practices.Unity.Configuration.xml

@@ -1,5 +1,4 @@
 ﻿@using NewsBlog.Helpers
-@using NewsBlog.Models
 @model NewsBlog.Models.PageViewModel
 
 @{
@@ -16,7 +15,6 @@
                 <label class="control-label">Категории: </label>
                 @Html.DropDownList("Category",Model.Category.Items as List<SelectListItem>,
                     htmlAttributes: new {@class = "form-control"})
-                <input type="submit" value="Фильтр" class="btn btn-default" />
 
                 <label class="control-label">Тэги: </label>
                 @Html.DropDownListFor(d=>d.TagName , Model.TagName.Items as List<SelectListItem> , 
@@ -26,7 +24,6 @@
         </form>
     </div>
 </div>
-
 
 <div class="row" style="padding-top: 10px; flex-wrap: wrap; display: flex;">
     @foreach (var blog in Model.BlogItems)
@@ -49,7 +46,6 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a style="display: block;" href="/Home/DeleteArticle/@blog.NewsId">Удалить</a>
                             <a style="display: block;" href="/Home/UpdateArticle/@blog.NewsId">Изменить </a>
-                            <a style="display: block;" href="/Home/AddTagsFArtilce/@blog.NewsId">Добавить тэг</a>
                         </div>
                     </div>
                 </div>

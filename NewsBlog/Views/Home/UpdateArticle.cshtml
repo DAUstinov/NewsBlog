@@ -1,7 +1,4 @@
-﻿<script src="~/ckeditor/ckeditor.js"></script>
-<script src="~/ckeditor/adapters/jquery.js"></script>
-
-@using NewsBlog.Models
+﻿@using NewsBlog.Models
 @model NewsBlog.Models.BlogItem
 @using (Html.BeginForm("UpdateArticle", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -24,11 +21,13 @@
                 <div>Текст статьи</div>
                 @(Html.EditorFor(model => model.Description))
             </div>
+            <!--<div>
             @foreach (Tag t in ViewBag.Tags)
             {
                 <input type="checkbox" name="selectedTag" value="@t.Id"
                        @(Model.Tags.Contains(t) ? "checked=\"checked\"" : "") />@t.TagName<br />
             }
+            </div>-->
             <div class="form-group">
                 @if (Model.Image != null)
                 {<input type="file" name="uploadImage" />}
