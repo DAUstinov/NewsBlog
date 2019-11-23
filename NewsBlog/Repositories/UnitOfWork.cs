@@ -10,13 +10,13 @@ namespace NewsBlog.Repositories
 {
         public class UnitOfWork : IUnitOfWork
         {
-            private readonly BlogContext _dbContext;
+            private readonly DbContext _dbContext;
 
                 private readonly IDictionary<Type, object> _repositories;
                 private readonly IDictionary<Type, Type> _customRepositoryTypes;
 
 
-                public UnitOfWork(BlogContext dbContext)
+                public UnitOfWork(DbContext dbContext)
                 {
                     _dbContext = dbContext;
 

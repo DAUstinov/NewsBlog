@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -124,33 +125,41 @@ namespace NewsBlog.Controllers
           [HttpPost, ActionName("UpdateArticle")]
           public ActionResult Update(BlogItem item , HttpPostedFileBase uploadImage , int[] selectedTag)
           {
-             // var newItem = _blogService.GetArticle(item.NewsId);
-             // newItem.Category = item.Category;
-             // newItem.Description = item.Description;
-             // newItem.Image = item.Image;
-             // newItem.ShortDescription = item.Description;
-             // newItem.Name = item.Name;
-             //
-             // newItem.Tags.Clear();
-             if (selectedTag != null)
+             var newItem = _db.BlogItems.Find(item.NewsId);
+             if (newItem != null)
              {
-                 foreach (var c in _db.Tags.Where(co => selectedTag.Contains(co.Id)))
+                 newItem.Category = item.Category;
+                 newItem.Description = item.Description;
+                 newItem.Image = item.Image;
+                 newItem.ShortDescription = item.ShortDescription;
+                 newItem.Name = item.Name;
+                 newItem.Tags = item.Tags;
+
+                 newItem.Tags.Clear();
+                 if (selectedTag != null)
                  {
-                     _blogService.AddTags(c);
+                     foreach (var c in _db.Tags.Where(co => selectedTag.Contains(co.Id)))
+                     {
+                         newItem.Tags.Add(c);
+                     }
+                 }
+
+                 if (ModelState.IsValid && uploadImage != null)
+                 {
+                     byte[] imageData;
+                     using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                     {
+                         imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                     }
+
+                     newItem.Image = imageData;
+                     _db.Entry(newItem).State = EntityState.Modified;
+                     _db.SaveChanges();
+
+                     return RedirectToAction("Admin");
                  }
              }
-             if (ModelState.IsValid && uploadImage != null)
-             {
-                 byte[] imageData;
-                 using (var binaryReader = new BinaryReader(uploadImage.InputStream))
-                 {
-                     imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
-                 }
-                 item.Image = imageData;
-                 _blogService.UpdateArticle(item);
-        
-                 return RedirectToAction("Admin");
-             }
+
              return View(item);
           }
 

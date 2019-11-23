@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using NewsBlog.Models;
 using NewsBlog.Repositories;
@@ -9,9 +10,9 @@ namespace NewsBlog.Services
     {
         private readonly UnitOfWork _unitOfWork;
 
-        public BlogService(BlogContext blogContext)
+        public BlogService(DbContext dbContext)
         {
-            this._unitOfWork = new UnitOfWork(blogContext);
+            this._unitOfWork = new UnitOfWork(dbContext);
         }
 
         public Task<List<BlogItem>> GetNews()

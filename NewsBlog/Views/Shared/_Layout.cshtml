@@ -29,11 +29,13 @@
                     {
                         <li>@Html.ActionLink("Добавить редактора", "Register", "Account")</li>
                         <li style="display: none">@Html.ActionLink("Вход", "Login", "Account")</li>
+                        <li>@Html.ActionLink("Выйти", "Logout", "Account")</li>
                     }
                     else
                     {
                         <li style="display: none">@Html.ActionLink("Добавить редактора", "Register", "Account")</li>
                         <li>@Html.ActionLink("Вход", "Login", "Account")</li>
+                        <li style="display: none;">@Html.ActionLink("Выйти", "Logout", "Account")</li>
                     }
                     <li></li>
                 </ul>
