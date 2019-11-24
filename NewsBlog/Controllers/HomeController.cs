@@ -14,59 +14,60 @@ namespace NewsBlog.Controllers
           private readonly BlogContext _db = new BlogContext();
           private readonly BlogService _blogService;
         
-          public HomeController(BlogContext blogContext)
+          public HomeController(DbContext dbContext)
           {
-              _blogService = new BlogService(blogContext);
+              _blogService = new BlogService(dbContext);
           }
         
-          public ActionResult Index(int page = 1)
+          public ActionResult Index(string tagString ,string searchString , int page = 1)
           {
-              //string tagCollection, string categoryCollection,
-             var categoryCollection = new SelectList(_db.BlogItems.Select(
-                 row => new SelectListItem 
-                     { Text = row.Category, Value = row.Category }).Distinct().ToList());
-              var tagCollection = new SelectList(_db.Tags.Select(
-                  row => new SelectListItem 
-                      { Text = row.TagName, Value = row.TagName }).ToList());
               const int pageSize = 6;
               var articlesPerPAge = _db.BlogItems.ToList().Skip(
                   (page - 1) * pageSize).Take(pageSize);
               var pageInfo = new PageInfo 
                   { PageNumber = page, PageSize = pageSize, TotalItems = _db.BlogItems.ToList().Count };
+              if (!string.IsNullOrEmpty(searchString))
+              {
+                  articlesPerPAge = articlesPerPAge.Where(s => s.Category.Contains(searchString));
+              }
+              var tagFilter = from s in _db.Tags select s;
+              if (!string.IsNullOrEmpty(tagString))
+              {
+                  tagFilter = tagFilter.Where(s => s.TagName.Contains(tagString));
+              }
               var pvm = new PageViewModel()
               {
                   PageInfo = pageInfo,
                   BlogItems = articlesPerPAge,
-                  Category = categoryCollection,
-                  TagName = tagCollection
-        
+                  Tags = tagFilter
               };
               return View(pvm);
           }
         
-          public ActionResult Admin(int page = 1)
+          public ActionResult Admin(string tagString, string searchString, int page = 1)
           {
-             var categoryCollection = new SelectList(_db.BlogItems.Select(
-                 row => new SelectListItem
-                     { Text = row.Category, Value = row.Category }).Distinct().ToList());
-             var tagCollection = new SelectList(_db.Tags.Select(
-                 row => new SelectListItem
-                     { Text = row.TagName, Value = row.TagName }).ToList());
-             const int pageSize = 6;
-             var articlesPerPAge = _db.BlogItems.ToList().Skip(
-                 (page - 1) * pageSize).Take(pageSize);
-             var pageInfo = new PageInfo
-                 { PageNumber = page, PageSize = pageSize, TotalItems = _db.BlogItems.ToList().Count };
-             var pvm = new PageViewModel()
-             {
-                 PageInfo = pageInfo,
-                 BlogItems = articlesPerPAge,
-                 Category = categoryCollection,
-                 TagName = tagCollection
-        
-             };
-             return View(pvm);
-          }
+              const int pageSize = 6;
+              var articlesPerPAge = _db.BlogItems.ToList().Skip(
+                  (page - 1) * pageSize).Take(pageSize);
+              var pageInfo = new PageInfo
+                  { PageNumber = page, PageSize = pageSize, TotalItems = _db.BlogItems.ToList().Count };
+              if (!string.IsNullOrEmpty(searchString))
+              {
+                  articlesPerPAge = articlesPerPAge.Where(s => s.Category.Contains(searchString));
+              }
+              var tagFilter = from s in _db.Tags select s;
+              if (!string.IsNullOrEmpty(tagString))
+              {
+                  tagFilter = tagFilter.Where(s => s.TagName.Contains(tagString));
+              }
+              var pvm = new PageViewModel()
+              {
+                  PageInfo = pageInfo,
+                  BlogItems = articlesPerPAge,
+                  Tags = tagFilter
+              };
+              return View(pvm);
+        }
         
           public ActionResult CreateNews(BlogItem blog)
           {

@@ -3,20 +3,13 @@
 @model NewsBlog.Models.PageViewModel
 
 <div class="row" style="padding-top: 10px; padding-left: 15px; justify-content: space-between;display: flex">
-    <div>
-        <form method="get">
-            <div class="form-inline">
-                <label class="control-label">Категории: </label>
-                @Html.DropDownList("Category", Model.Category.Items as List<SelectListItem>,
-                    htmlAttributes: new { @class = "form-control" })
-
-                <label class="control-label">Тэги: </label>
-                @Html.DropDownListFor(d => d.TagName, Model.TagName.Items as List<SelectListItem>,
-                    htmlAttributes: new { @class = "form-control" })
-                <input type="submit" value="Фильтр" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
+    @using (Html.BeginForm())
+    {
+        <p>
+            Find by category: @Html.TextBox("SearchString")
+            Find by tag: @Html.TextBox("tagString")
+            <input type="submit" value="Search" /></p>
+    }
 </div>
 
 <div class="row" style="padding-top: 10px; flex-wrap: wrap; display: flex;">
