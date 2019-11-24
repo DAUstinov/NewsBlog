@@ -67,31 +67,39 @@ namespace NewsBlog.Controllers
                   Tags = tagFilter
               };
               return View(pvm);
-        }
+          }
         
           public ActionResult CreateNews(BlogItem blog)
           {
+              ViewBag.Tags = _db.Tags.ToList();
               return View(blog);
           }
         
           [HttpPost]
-          public ActionResult CreateNews(BlogItem blog , HttpPostedFileBase uploadImage)
+          public ActionResult CreateNews(BlogItem blog , HttpPostedFileBase uploadImage , int[] selectedTag)
           {
-              
-              if (ModelState.IsValid && uploadImage != null)
-              {
-                  byte[] imageData;
-                  using (var binaryReader = new BinaryReader(uploadImage.InputStream))
-                  {
-                      imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
-                  }
-                  blog.Image = imageData;
+               if (selectedTag != null)
+               {
+                   foreach (var c in _db.Tags.Where(co => selectedTag.Contains(co.Id)))
+                   {
+                       blog.Tags.Add(c);
+                   }
+               }
+               if (ModelState.IsValid && uploadImage != null)
+               {
+                   byte[] imageData;
+                   using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                   {
+                       imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                   }
+                   blog.Image = imageData;
         
-                  _blogService.AddItem(blog);
+                   _db.BlogItems.Add(blog);
+                   _db.SaveChanges();
         
-                  return RedirectToAction("Admin");
-              }
-              return View(blog);
+                   return RedirectToAction("Admin");
+               }
+               return View(blog);
           }
         
           public ActionResult Article(int id)
@@ -117,10 +125,10 @@ namespace NewsBlog.Controllers
           
           [HttpGet]
           public ActionResult UpdateArticle(int id)
-          {
+          { 
               var blog = _blogService.GetArticle(id);
               ViewBag.Tags = _db.Tags.ToList();
-             return View(blog);
+              return View(blog);
           }
         
           [HttpPost, ActionName("UpdateArticle")]

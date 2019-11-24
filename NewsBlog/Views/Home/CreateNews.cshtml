@@ -30,6 +30,11 @@
             <div class="form-group">
                 <input type="file" name="uploadImage" />
             </div>
+            @foreach (Tag t in ViewBag.Tags)
+            {
+                <input type="checkbox" name="selectedTag" value="@t.Id"
+                       @(Model.Tags.Contains(t) ? "checked=\"checked\"" : "") />@t.TagName<br />
+            }
             <div class="form-group">
                 <input type="submit" value="Добавить" />
             </div>
