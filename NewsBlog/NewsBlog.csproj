@@ -237,6 +237,14 @@
     <Compile Include="Migrations\201912031135496_oneToManyCor.designer.cs">
       <DependentUpon>201912031135496_oneToManyCor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912031730557_oneToManyFinal.cs" />
+    <Compile Include="Migrations\201912031730557_oneToManyFinal.designer.cs">
+      <DependentUpon>201912031730557_oneToManyFinal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912031900129_oneToManyFinalv0.1.cs" />
+    <Compile Include="Migrations\201912031900129_oneToManyFinalv0.1.designer.cs">
+      <DependentUpon>201912031900129_oneToManyFinalv0.1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="IdentityModel\ApplicationContext.cs" />
     <Compile Include="IdentityModel\ApplicationUser.cs" />
@@ -645,6 +653,10 @@
     <Content Include="Views\Home\Article.cshtml" />
     <Content Include="Views\Home\DeleteArticle.cshtml" />
     <Content Include="Views\Home\UpdateArticle.cshtml" />
+    <Content Include="Views\Home\CategoryList.cshtml" />
+    <Content Include="Views\Home\CreateCategory.cshtml" />
+    <Content Include="Views\Home\DeleteCategory.cshtml" />
+    <Content Include="Views\Home\EditCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -689,6 +701,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912031135496_oneToManyCor.resx">
       <DependentUpon>201912031135496_oneToManyCor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912031730557_oneToManyFinal.resx">
+      <DependentUpon>201912031730557_oneToManyFinal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912031900129_oneToManyFinalv0.1.resx">
+      <DependentUpon>201912031900129_oneToManyFinalv0.1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

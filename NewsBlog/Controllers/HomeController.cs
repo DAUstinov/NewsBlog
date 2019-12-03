@@ -23,7 +23,7 @@ namespace NewsBlog.Controllers
             { PageNumber = page, PageSize = pageSize, TotalItems = _db.BlogItems.ToList().Count };
             if (!string.IsNullOrEmpty(startDate) && !string.IsNullOrEmpty(endDate))
             {
-                articlesPerPAge = articlesPerPAge.Where(d => d.Date <= Convert.ToDateTime(endDate) 
+                articlesPerPAge = articlesPerPAge.Where(d => d.Date <= Convert.ToDateTime(endDate)
                                                              && d.Date >= Convert.ToDateTime(startDate)).ToList();
             }
             if (!string.IsNullOrEmpty(searchString))
@@ -71,28 +71,28 @@ namespace NewsBlog.Controllers
 
             return pvm;
         }
-        
+
         private readonly BlogContext _db = new BlogContext();
         private readonly BlogService _blogService;
         public HomeController(DbContext dbContext)
         {
             _blogService = new BlogService(dbContext);
         }
-        
-        public ActionResult Index(string startDate , string endDate, string tagString ,string searchString , int page = 1)
+
+        public ActionResult Index(string startDate, string endDate, string tagString, string searchString, int page = 1)
         {
-            var dryView = Test(startDate, endDate, tagString, searchString , page);
+            var dryView = Test(startDate, endDate, tagString, searchString, page);
             ViewBag.Categories = _db.Categories.ToList();
             return View(dryView);
         }
-        
-        public ActionResult Admin(string startDate , string endDate,string tagString, string searchString, int page = 1)
+
+        public ActionResult Admin(string startDate, string endDate, string tagString, string searchString, int page = 1)
         {
-            var dryView = Test(startDate, endDate, tagString, searchString , page);
+            var dryView = Test(startDate, endDate, tagString, searchString, page);
             ViewBag.Categories = _db.Categories.ToList();
             return View(dryView);
         }
-        
+
         public ActionResult CreateNews(BlogItem blog)
         {
             ViewBag.Tags = _db.Tags.ToList();
@@ -100,9 +100,9 @@ namespace NewsBlog.Controllers
             ViewBag.Categories = categories;
             return View(blog);
         }
-        
+
         [HttpPost]
-        public ActionResult CreateNews(BlogItem blog , HttpPostedFileBase uploadImage , int[] selectedTag)
+        public ActionResult CreateNews(BlogItem blog, HttpPostedFileBase uploadImage, int[] selectedTag)
         {
             blog.Date = DateTime.UtcNow;
             if (selectedTag != null)
@@ -113,7 +113,7 @@ namespace NewsBlog.Controllers
                     blog.Tags.Add(c);
                 }
             }
-            if (ModelState.IsValid&&uploadImage != null)
+            if (ModelState.IsValid && uploadImage != null)
             {
                 byte[] imageData;
                 using (var binaryReader = new BinaryReader(uploadImage.InputStream))
@@ -133,27 +133,27 @@ namespace NewsBlog.Controllers
             ViewBag.Tags = _db.Tags.ToList();
             return View(blog);
         }
-        
+
         public ActionResult Article(int id)
         {
             var article = _blogService.GetArticle(id);
             return View(article);
         }
-        
+
         [HttpGet]
         public ActionResult DeleteArticle(int id)
         {
             var item = _blogService.GetArticle(id);
             return View(item);
         }
-        
+
         [HttpPost, ActionName("DeleteArticle")]
         public ActionResult Delete(int id)
         {
             _blogService.DeleteArticle(id);
             return RedirectToAction("Admin");
         }
-        
+
         [HttpGet]
         public ActionResult UpdateArticle(int id)
         {
@@ -163,9 +163,9 @@ namespace NewsBlog.Controllers
             ViewBag.Categories = categories;
             return View(blog);
         }
-        
+
         [HttpPost, ActionName("UpdateArticle")]
-        public ActionResult Update(BlogItem item , HttpPostedFileBase uploadImage , int[] selectedTag)
+        public ActionResult Update(BlogItem item, HttpPostedFileBase uploadImage, int[] selectedTag)
         {
             var newItem = _db.BlogItems.Find(item.NewsId);
             if (newItem == null)
@@ -173,13 +173,13 @@ namespace NewsBlog.Controllers
                 ViewBag.Tags = _db.Tags.ToList();
                 return View(item);
             }
-            newItem.Category = item.Category;
             newItem.Description = item.Description;
             newItem.Image = item.Image;
             newItem.ShortDescription = item.ShortDescription;
             newItem.Name = item.Name;
             newItem.Tags = item.Tags;
             newItem.Date = DateTime.UtcNow;
+            newItem.CategoryId = item.CategoryId;
 
             newItem.Tags.Clear();
             if (selectedTag != null)
@@ -189,7 +189,7 @@ namespace NewsBlog.Controllers
                     newItem.Tags.Add(c);
                 }
             }
-            if (ModelState.IsValid&&uploadImage != null)
+            if (ModelState.IsValid && uploadImage != null)
             {
                 byte[] imageData;
                 using (var binaryReader = new BinaryReader(uploadImage.InputStream))
@@ -202,11 +202,61 @@ namespace NewsBlog.Controllers
                 _db.SaveChanges();
                 return RedirectToAction("Admin");
             }
+
             var categories = new SelectList(_db.Categories, "Id", "Name");
             ViewBag.Categories = categories;
             ViewBag.Tags = _db.Tags.ToList();
 
             return View(item);
         }
+
+        public ActionResult CategoryList()
+        {
+            var category = _db.Categories.ToList();
+            return View(category);
+        }
+
+        public ActionResult CreateCategory(Category category)
+        {
+            return View(category);
+        }
+
+        [HttpPost , ActionName("CreateCategory")]
+        public ActionResult CreateNewCategory(Category category)
+        {
+            _db.Categories.Add(category);
+            _db.SaveChanges();
+            return RedirectToAction("CategoryList");
+        }
+
+        public ActionResult EditCategory(Category category)
+        {
+            return View(category);
+        }
+
+        [HttpPost , ActionName("EditCategory")]
+        public ActionResult EditThatCategory(Category category)
+        {
+            _db.Entry(category).State = EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("CategoryList");
+        }
+
+        public ActionResult DeleteCategory(int id)
+        {
+            var category = _db.Categories.Find(id);
+            return View(category);
+        }
+
+        [HttpPost , ActionName("DeleteCategory")]
+        public ActionResult DeleteThatCategory(int id)
+        {
+            var cascade = _db.Categories.Include(c => c.BlogItems)
+                                        .FirstOrDefault(c => c.Id == id);
+            _db.Categories.Remove(cascade ?? throw new InvalidOperationException());
+            _db.SaveChanges();
+            return RedirectToAction("CategoryList");
+        }
+
     }
 }

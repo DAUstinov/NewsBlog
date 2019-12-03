@@ -31,7 +31,6 @@
                             @Html.DisplayFor(modelItem => blog.Name)
                         </div>
                         <div>
-                            @Html.DisplayFor(modelItem => blog.Category)
                             @foreach (var c in ViewBag.Categories)
                             {
                                 if (blog.CategoryId == c.Id)

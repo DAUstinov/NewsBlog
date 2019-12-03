@@ -16,8 +16,7 @@ namespace NewsBlog.Models
         public string ShortDescription { get; set; }
         [Required]
         public string Description { get; set; }
-        public int? CategoryId { get; set; }
-        public string Category { get; set; }
+        public int CategoryId { get; set; }
         public byte[] Image { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
 
