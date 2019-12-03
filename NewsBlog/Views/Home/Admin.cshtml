@@ -6,16 +6,16 @@
 }
 
 <div class="row" style="padding-top: 10px; padding-left: 15px; justify-content: space-between;display: flex">
-    <div style="display: flex; align-items: center;">
-        @Html.ActionLink("Добавить Новость", "CreateNews")
-    </div>
     <div>
         @using (Html.BeginForm())
         {
-            <p>
-                Find by category: @Html.TextBox("SearchString")
-                Find by tag: @Html.TextBox("tagString")
-                <input type="submit" value="Search" /></p>
+        <p>
+            Find by category: @Html.DropDownList("searchString", Model.Category, "")
+            Find by tag:      @Html.TextBox("tagString")
+            Find by Date:     @Html.TextBox("startDate")
+                              @Html.TextBox("endDate")
+            <input type="submit" value="Search" />
+        </p>
         }
     </div>
 </div>
@@ -32,6 +32,13 @@
                         </div>
                         <div>
                             @Html.DisplayFor(modelItem => blog.Category)
+                            @foreach (var c in ViewBag.Categories)
+                            {
+                                if (blog.CategoryId == c.Id)
+                                {
+                                    @c.Name
+                                }
+                            }
                         </div>
                     </div>
                     <div class="dropdown">

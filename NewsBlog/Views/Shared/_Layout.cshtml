@@ -25,6 +25,7 @@
                     @if (Context.User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Страница редактора", "Admin", "Home")</li>
+                        <li>@Html.ActionLink("Добавить новость" , "CreateNews" , "Home")</li>
                     }
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

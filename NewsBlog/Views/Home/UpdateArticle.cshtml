@@ -11,7 +11,7 @@
             </div>
             <div class="form-group">
                 <div>Категория</div>
-                @(Html.EditorFor(model => model.Category))
+                @Html.DropDownListFor(model => model.CategoryId, ViewBag.Categories as SelectList)
             </div>
             <div class="form-group">
                 <div>Краткая информация</div>

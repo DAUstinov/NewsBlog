@@ -7,8 +7,8 @@ namespace NewsBlog.Models
     {
         public IEnumerable<BlogItem> BlogItems { get; set; }
         public IEnumerable<Tag> Tags { get; set; }
+        public IEnumerable<Category> Categories { get; set; }
         public SelectList Category { get; set; }
-        public SelectList TagName { get; set; }
         public PageInfo PageInfo { get; set; }
     }
 }

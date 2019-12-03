@@ -221,6 +221,22 @@
     <Compile Include="Migrations\201911161340292_ShortDescription.designer.cs">
       <DependentUpon>201911161340292_ShortDescription.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911301125075_Date.cs" />
+    <Compile Include="Migrations\201911301125075_Date.designer.cs">
+      <DependentUpon>201911301125075_Date.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912021321480_validation.cs" />
+    <Compile Include="Migrations\201912021321480_validation.designer.cs">
+      <DependentUpon>201912021321480_validation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912031127441_oneToMany.cs" />
+    <Compile Include="Migrations\201912031127441_oneToMany.designer.cs">
+      <DependentUpon>201912031127441_oneToMany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912031135496_oneToManyCor.cs" />
+    <Compile Include="Migrations\201912031135496_oneToManyCor.designer.cs">
+      <DependentUpon>201912031135496_oneToManyCor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="IdentityModel\ApplicationContext.cs" />
     <Compile Include="IdentityModel\ApplicationUser.cs" />
@@ -229,7 +245,7 @@
     <Compile Include="Models\BlogItem.cs" />
     <Compile Include="IdentityModel\LoginModel.cs" />
     <Compile Include="IdentityModel\RegisterModel.cs" />
-    <Compile Include="Models\Image.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Models\PageViewModel.cs" />
     <Compile Include="Models\Tag.cs" />
@@ -661,6 +677,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911161340292_ShortDescription.resx">
       <DependentUpon>201911161340292_ShortDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911301125075_Date.resx">
+      <DependentUpon>201911301125075_Date.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912021321480_validation.resx">
+      <DependentUpon>201912021321480_validation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912031127441_oneToMany.resx">
+      <DependentUpon>201912031127441_oneToMany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912031135496_oneToManyCor.resx">
+      <DependentUpon>201912031135496_oneToManyCor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

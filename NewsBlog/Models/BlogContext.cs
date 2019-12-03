@@ -7,6 +7,6 @@ namespace NewsBlog.Models
         public BlogContext() : base("IdentityDb") { }
         public DbSet<BlogItem> BlogItems { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<Image> Images { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }
