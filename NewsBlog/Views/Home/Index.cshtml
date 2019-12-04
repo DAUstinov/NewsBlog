@@ -6,10 +6,10 @@
     @using (Html.BeginForm())
     {
     <p>
-        Find by category: @Html.DropDownList("searchString", Model.Category, "")
-        Find by tag:      @Html.TextBox("TagString")
-        Find by Date:     @Html.TextBox("startDate")
-                          @Html.TextBox("endDate")
+        Поиск по категории: @Html.DropDownList("searchString", Model.Category, "")
+        Поиск по тегу:      @Html.TextBox("tagString")
+        Поиск по дате:      @Html.TextBox("startDate")
+                            @Html.TextBox("endDate")
         <input type="submit" value="Search" />
     </p>
     }
@@ -37,8 +37,11 @@
                     </div>
                 </div>
                 <a href="/Home/Article/@blog.NewsId">
-                    @Html.Raw("<img style='width:380px; height:260px;' src=\"data:image/jpeg;base64,"
-                              + Convert.ToBase64String(blog.Image) + "\" />")
+                    @if (blog.Image != null)
+                    {
+                        @Html.Raw("<img style='width:380px; height:260px;' src=\"data:image/jpeg;base64,"
+                                  + Convert.ToBase64String(blog.Image) + "\" />")
+                    }
                 </a>
                 <div>
                     <p>

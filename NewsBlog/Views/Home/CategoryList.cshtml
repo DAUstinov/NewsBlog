@@ -4,10 +4,10 @@
     ViewBag.Title = "View";
 }
 
-<h2>View</h2>
+<h2>Список категорий</h2>
 
 <p>
-    @Html.ActionLink("Create New", "CreateCategory")
+    @Html.ActionLink("Добавить новую категорию", "CreateCategory")
 </p>
 <table class="table">
     <tr>
@@ -23,8 +23,8 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditCategory", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "DeleteCategory", new { id=item.Id })
+            @Html.ActionLink("Изменить", "EditCategory", new { id=item.Id }) |
+            @Html.ActionLink("Удалить", "DeleteCategory", new { id=item.Id })
         </td>
     </tr>
 }

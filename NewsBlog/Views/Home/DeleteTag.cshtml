@@ -1,0 +1,32 @@
+﻿@model NewsBlog.Models.Tag
+
+@{
+    ViewBag.Title = "DeleteTag";
+}
+
+<h2>Удаление тега</h2>
+
+<h3>Вы действительно хотите удалить этот тег?</h3>
+<div>
+    <h4>Тег</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TagName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TagName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("Вернуться к списку тегов", "TagList")
+        </div>
+    }
+</div>

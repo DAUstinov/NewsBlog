@@ -137,6 +137,7 @@ namespace NewsBlog.Controllers
         public ActionResult Article(int id)
         {
             var article = _blogService.GetArticle(id);
+            ViewBag.Categories = _db.Categories.ToList();
             return View(article);
         }
 
@@ -168,41 +169,39 @@ namespace NewsBlog.Controllers
         public ActionResult Update(BlogItem item, HttpPostedFileBase uploadImage, int[] selectedTag)
         {
             var newItem = _db.BlogItems.Find(item.NewsId);
-            if (newItem == null)
+            if (newItem != null)
             {
-                ViewBag.Tags = _db.Tags.ToList();
-                return View(item);
-            }
-            newItem.Description = item.Description;
-            newItem.Image = item.Image;
-            newItem.ShortDescription = item.ShortDescription;
-            newItem.Name = item.Name;
-            newItem.Tags = item.Tags;
-            newItem.Date = DateTime.UtcNow;
-            newItem.CategoryId = item.CategoryId;
+                newItem.Description = item.Description;
+                newItem.Image = item.Image;
+                newItem.ShortDescription = item.ShortDescription;
+                newItem.Name = item.Name;
+                newItem.Tags = item.Tags;
+                newItem.Date = DateTime.UtcNow;
+                newItem.CategoryId = item.CategoryId;
 
-            newItem.Tags.Clear();
-            if (selectedTag != null)
-            {
-                foreach (var c in _db.Tags.Where(co => selectedTag.Contains(co.Id)))
+                if (selectedTag != null)
                 {
-                    newItem.Tags.Add(c);
-                }
-            }
-            if (ModelState.IsValid && uploadImage != null)
-            {
-                byte[] imageData;
-                using (var binaryReader = new BinaryReader(uploadImage.InputStream))
-                {
-                    imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                    newItem.Tags.Clear();
+                    foreach (var c in _db.Tags.Where(co => selectedTag.Contains(co.Id)))
+                    {
+                        newItem.Tags.Add(c);
+                    }
                 }
 
-                newItem.Image = imageData;
-                _db.Entry(newItem).State = EntityState.Modified;
-                _db.SaveChanges();
-                return RedirectToAction("Admin");
-            }
+                if (ModelState.IsValid && uploadImage != null)
+                {
+                    byte[] imageData;
+                    using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                    {
+                        imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                    }
 
+                    newItem.Image = imageData;
+                    _db.Entry(newItem).State = EntityState.Modified;
+                    _db.SaveChanges();
+                    return RedirectToAction("Admin");
+                }
+            }
             var categories = new SelectList(_db.Categories, "Id", "Name");
             ViewBag.Categories = categories;
             ViewBag.Tags = _db.Tags.ToList();
@@ -254,6 +253,39 @@ namespace NewsBlog.Controllers
             var cascade = _db.Categories.Include(c => c.BlogItems)
                                         .FirstOrDefault(c => c.Id == id);
             _db.Categories.Remove(cascade ?? throw new InvalidOperationException());
+            _db.SaveChanges();
+            return RedirectToAction("CategoryList");
+        }
+
+        public ActionResult TagList()
+        {
+            var tags = _db.Tags.ToList();
+            return View(tags);
+        }
+
+        public ActionResult CreateTag(Tag tag)
+        {
+            return View(tag);
+        }
+
+        [HttpPost , ActionName("CreateTag")]
+        public ActionResult CreateThatTag(Tag tag)
+        {
+            _db.Tags.Add(tag);
+            _db.SaveChanges();
+            return RedirectToAction("TagList");
+        }
+
+        public ActionResult DeleteTag(Tag tag)
+        {
+            return View(tag);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteTag(int id)
+        {
+            var tag = _db.Tags.Find(id);
+            _db.Tags.Remove(tag ?? throw new InvalidOperationException());
             _db.SaveChanges();
             return RedirectToAction("CategoryList");
         }
