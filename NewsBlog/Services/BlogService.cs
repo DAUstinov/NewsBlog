@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
 using NewsBlog.Models;
 using NewsBlog.Repositories;
 
@@ -15,16 +13,26 @@ namespace NewsBlog.Services
             this._unitOfWork = new UnitOfWork(dbContext);
         }
 
-        public Task<List<BlogItem>> GetNews()
-        {
-            return _unitOfWork.GetRepository<BlogItem>().GetAll();
-        }
-
         public BlogItem GetArticle(int id)
         {
             return _unitOfWork.GetRepository<BlogItem>().Get(id);
         }
 
+        public Tag GetTag(int id)
+        {
+            return _unitOfWork.GetRepository<Tag>().Get(id);
+        }
+        public Category GetCategory(int id)
+        {
+            return _unitOfWork.GetRepository<Category>().Get(id);
+        }
+
+        public void AddCategory(Category category)
+        {
+            _unitOfWork.GetRepository<Category>().Create(category);
+            _unitOfWork.SaveChanges();
+        }
+        
         public void AddTags(Tag tags)
         {
             _unitOfWork.GetRepository<Tag>().Create(tags);
@@ -37,17 +45,22 @@ namespace NewsBlog.Services
             _unitOfWork.SaveChanges();
         }
 
+        public void DeleteTag(int id)
+        {
+            _unitOfWork.GetRepository<Tag>().Delete(GetTag(id));
+            _unitOfWork.SaveChanges();
+        }
         public void DeleteArticle(int id)
         {
             _unitOfWork.GetRepository<BlogItem>().Delete(GetArticle(id));
             _unitOfWork.SaveChanges();
         }
 
-        public void UpdateArticle(BlogItem item)
+        public void UpdateCategory(Category category)
         {
-            _unitOfWork.GetRepository<BlogItem>().Update(item);
+            _unitOfWork.GetRepository<Category>().Update(category);
             _unitOfWork.SaveChanges();
         }
-
+        
     }
 }

@@ -18,7 +18,7 @@
             @Html.LabelFor(model => model.TagName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.TagName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TagName, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.TagName, "Требуется ввести название тега", new { @class = "text-danger" })
             </div>
         </div>
 

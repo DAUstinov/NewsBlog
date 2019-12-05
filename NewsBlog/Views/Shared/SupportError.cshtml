@@ -1,0 +1,19 @@
+﻿@model HandleErrorInfo
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Ошибка</title>
+</head>
+<body>
+<hgroup>
+    <h1>При обработке запроса произошла ошибка.</h1>
+    <h2>Возникла ошибка при попытке вызова метода , который не поддерживается , измените данные и попробуйте снова.</h2>
+</hgroup>
+<div>
+    @Html.ActionLink("Измените значение и попробуйте снова", "Index")
+</div>
+</body>
+</html>

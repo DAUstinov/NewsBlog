@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model HandleErrorInfo
+
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -6,9 +8,12 @@
     <title>Ошибка</title>
 </head>
 <body>
-    <hgroup>
-        <h1>Ошибка.</h1>
-        <h2>При обработке запроса произошла ошибка.</h2>
-    </hgroup>
+<hgroup>
+    <h1>При обработке запроса произошла ошибка.</h1>
+    <h2>Возможно было передано некорректное значение , или значение не было передано вовсе.</h2>
+</hgroup>
+<div>
+    @Html.ActionLink("Измените значение и попробуйте снова", "Index")
+</div>
 </body>
 </html>

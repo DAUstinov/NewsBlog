@@ -6,7 +6,7 @@
 }
 
 <div style="height: 100%; width: 100%; display: flex; flex-direction: column; align-items: center;">
-    <h2>CreateNews</h2> 
+    <h2>Создание новости</h2> 
     @using (Html.BeginForm("CreateNews", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <form>
@@ -48,5 +48,5 @@
     }
 </div>
 <div>
-    @Html.ActionLink("Back to List", "Admin")
+    @Html.ActionLink("Вернуться к списку", "Admin")
 </div>
