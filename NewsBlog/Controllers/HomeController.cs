@@ -226,9 +226,9 @@ namespace NewsBlog.Controllers
                 newItem.Date = DateTime.UtcNow;
                 newItem.CategoryId = item.CategoryId;
 
+                newItem.Tags.Clear();
                 if (selectedTag != null)
                 {
-                    newItem.Tags.Clear();
                     foreach (var c in _db.Tags.Where(co => selectedTag.Contains(co.Id)))
                     {
                         newItem.Tags.Add(c);
