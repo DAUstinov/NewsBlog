@@ -2,16 +2,25 @@
 @using NewsBlog.Helpers
 @model NewsBlog.Models.PageViewModel
 
+
+
 <div class="row" style="padding-top: 10px; padding-left: 15px; justify-content: space-between;display: flex">
     @using (Html.BeginForm())
     {
-    <p>
-        Поиск по категории: @Html.DropDownList("searchString", Model.Category, "")
-        Поиск по тегу:      @Html.TextBox("tagString")
-        Поиск по дате:      @Html.TextBox("startDate")
-                            @Html.TextBox("endDate")
-        <input type="submit" value="Search" />
-    </p>
+        <p>
+            Поиск по категории: @Html.DropDownList("searchString", Model.Category, new
+                           {
+                               @class = "chzn-select",
+                               data_placeholder ="Категории"
+                           })
+            Поиск по тегу:      @Html.ListBox("tagString", Model.Tag, new {                               
+                                                                            @class = "chzn-select",
+                                                                            data_placeholder = "Теги"
+                                                                          })
+            Поиск по дате:      <input id="startDate" name="startDate" type="date" value="startDate" />
+            <input id="endDate" name="endDate" type="date" value="endDate" />
+            <input type="submit" value="Search" />
+        </p>
     }
 </div>
 
@@ -39,15 +48,15 @@
                 <div>
                     <a href="/Home/Article/@blog.NewsId">
                         @if (blog.Image != null)
-                         {
+                        {
 
-                            @Html.Raw("<img style='width:380px; height:260px;' src=\"data:image/jpeg;base64,"
+                            @Html.Raw("<img style='width:380px; height:260px;  border: 1px solid #4a4a4a; border-radius: 25px;' src=\"data:image/jpeg;base64,"
                                       + Convert.ToBase64String(blog.Image) + "\" />")
-                         }
-                         else
-                         {
-                             <img src="/Content/Images/stockPicture.jpg" style="width: 380px; height: 260px; "/>
-                         }
+                        }
+                        else
+                        {
+                            <img src="~/Content/Images/no-image.jpg" style="width: 380px; height: 260px; " />
+                        }
                     </a>
                 </div>
                 <div>
@@ -58,9 +67,9 @@
                 <div>
                     @foreach (Tag t in blog.Tags)
                     {
-                        <button mat-button disabled="disabled">
-                            @t.TagName
-                        </button>
+                    <button mat-button disabled="disabled">
+                        @t.TagName
+                    </button>
                     }
                 </div>
             </div>
@@ -70,5 +79,7 @@
 
 <br />
 <div class="btn-group">
-    @Html.PageLinks(Model.PageInfo , x => Url.Action("Index", new { page = x }))
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
 </div>
+
+

@@ -61,6 +61,25 @@ namespace NewsBlog.Services
             _unitOfWork.GetRepository<Category>().Update(category);
             _unitOfWork.SaveChanges();
         }
+
+        public Comment GetComment(int id)
+        {
+            return _unitOfWork.GetRepository<Comment>().Get(id);
+        }
+
+        public void AddComment(Comment comment)
+        {
+            _unitOfWork.GetRepository<Comment>().Create(comment);
+            _unitOfWork.SaveChanges();
+        }
+
+        public void DeleteComment(int id)
+        {
+            _unitOfWork.GetRepository<Comment>().Delete(GetComment(id));
+            _unitOfWork.SaveChanges();
+        }
+
+        
         
     }
 }

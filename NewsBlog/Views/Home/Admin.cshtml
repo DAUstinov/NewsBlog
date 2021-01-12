@@ -9,13 +9,21 @@
     <div>
         @using (Html.BeginForm())
         {
-        <p>
-            Поиск по категории: @Html.DropDownList("searchString", Model.Category, "")
-            Поиск по тегу:      @Html.TextBox("tagString")
-            Поиск по дате:      @Html.TextBox("startDate")
-                                @Html.TextBox("endDate")
-            <input type="submit" value="Search" />
-        </p>
+            <p>
+                Поиск по категории: @Html.DropDownList("searchString", Model.Category, new
+           {
+               @class = "chzn-select",
+               data_placeholder = "Категории"
+           })
+                Поиск по тегу:      @Html.ListBox("tagString", Model.Tag, new
+                {
+                                                            @class = "chzn-select",
+                                                            data_placeholder = "Теги"
+                                                          })
+                Поиск по дате:      <input id="startDate" name="startDate" type="date" value="startDate" />
+                <input id="endDate" name="endDate" type="date" value="endDate" />
+                <input type="submit" value="Search" />
+            </p>
         }
     </div>
 </div>

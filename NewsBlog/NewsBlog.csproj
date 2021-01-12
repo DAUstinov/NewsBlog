@@ -249,6 +249,38 @@
     <Compile Include="Migrations\201912042044380_FinalModel.designer.cs">
       <DependentUpon>201912042044380_FinalModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009031926080_AddComment.cs" />
+    <Compile Include="Migrations\202009031926080_AddComment.designer.cs">
+      <DependentUpon>202009031926080_AddComment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010052129184_drop_old_comment.cs" />
+    <Compile Include="Migrations\202010052129184_drop_old_comment.designer.cs">
+      <DependentUpon>202010052129184_drop_old_comment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010052134587_Create_comment.cs" />
+    <Compile Include="Migrations\202010052134587_Create_comment.designer.cs">
+      <DependentUpon>202010052134587_Create_comment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010052136240_Create_comment_1.cs" />
+    <Compile Include="Migrations\202010052136240_Create_comment_1.designer.cs">
+      <DependentUpon>202010052136240_Create_comment_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010052139388_Create_comment_2.cs" />
+    <Compile Include="Migrations\202010052139388_Create_comment_2.designer.cs">
+      <DependentUpon>202010052139388_Create_comment_2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010130958213_RefComment.cs" />
+    <Compile Include="Migrations\202010130958213_RefComment.designer.cs">
+      <DependentUpon>202010130958213_RefComment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010131002283_RefComment1.cs" />
+    <Compile Include="Migrations\202010131002283_RefComment1.designer.cs">
+      <DependentUpon>202010131002283_RefComment1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010131006285_RefComment2.cs" />
+    <Compile Include="Migrations\202010131006285_RefComment2.designer.cs">
+      <DependentUpon>202010131006285_RefComment2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="IdentityModel\ApplicationContext.cs" />
     <Compile Include="IdentityModel\ApplicationUser.cs" />
@@ -258,6 +290,7 @@
     <Compile Include="IdentityModel\LoginModel.cs" />
     <Compile Include="IdentityModel\RegisterModel.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Models\PageViewModel.cs" />
     <Compile Include="Models\Tag.cs" />
@@ -271,14 +304,21 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\chosen-sprite%402x.png" />
+    <Content Include="Content\chosen-sprite.png" />
+    <Content Include="Content\chosen.css" />
+    <Content Include="Content\Images\no-image.jpg" />
     <Content Include="Content\Images\stockPicture.jpg" />
     <Content Include="Content\Images\_1412-473.jpg" />
+    <Content Include="Content\myStyle.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\chosen.jquery.js" />
+    <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\CHANGES.html" />
     <Content Include="Scripts\ckeditor\ckeditor.asp" />
@@ -638,7 +678,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Unity.Mvc3.README.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -671,6 +710,7 @@
     <Content Include="Views\Shared\SupportError.cshtml" />
     <Content Include="Views\Shared\OperationError.cshtml" />
     <Content Include="Views\Shared\FormatError.cshtml" />
+    <Content Include="Views\Home\CreateComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -724,6 +764,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912042044380_FinalModel.resx">
       <DependentUpon>201912042044380_FinalModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009031926080_AddComment.resx">
+      <DependentUpon>202009031926080_AddComment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010052129184_drop_old_comment.resx">
+      <DependentUpon>202010052129184_drop_old_comment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010052134587_Create_comment.resx">
+      <DependentUpon>202010052134587_Create_comment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010052136240_Create_comment_1.resx">
+      <DependentUpon>202010052136240_Create_comment_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010052139388_Create_comment_2.resx">
+      <DependentUpon>202010052139388_Create_comment_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010130958213_RefComment.resx">
+      <DependentUpon>202010130958213_RefComment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010131002283_RefComment1.resx">
+      <DependentUpon>202010131002283_RefComment1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010131006285_RefComment2.resx">
+      <DependentUpon>202010131006285_RefComment2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

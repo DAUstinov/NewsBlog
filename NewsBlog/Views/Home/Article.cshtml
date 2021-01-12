@@ -12,7 +12,9 @@
                     {
                         if (Model.CategoryId == c.Id)
                         {
-                            @c.Name
+                            <h3>
+                                @c.Name
+                            </h3>
                         }
                     }
                 </div>
@@ -71,8 +73,26 @@
             </div>
         </div>
     </div>
+    @foreach (Comment t in Model.Comments)
+    {
+        <div class="comment">
+            <img class="avatar" src="~/Content/Images/no-image.jpg" />
+            <div class="nickname">
+                <p>@t.UserName</p>
+            </div>
+            <div class="comment-content">
+                <p>
+                    @t.CommentText
+                </p>
+            </div>
+        </div>
+
+    }
+    <a style="display: block;" href="/Home/CreateComment/@Model.NewsId">Добавить комментарий </a>
 </div>
+
 <br />
 <div class="btn-group">
     @Html.ActionLink("Вернуться к списку новостей" , "Index")
+    
 </div>

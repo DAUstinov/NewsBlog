@@ -20,11 +20,14 @@ namespace NewsBlog.Models
         public int CategoryId { get; set; }
         public byte[] Image { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
 
         public BlogItem()
         {
             Tags = new List<Tag>();
+            Comments = new List<Comment>();
         }
+
 
     }
 }

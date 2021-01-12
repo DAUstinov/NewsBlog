@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using NewsBlog.IdentityModel;
 using NewsBlog.Models;
 using NewsBlog.Services;
 
@@ -36,7 +38,7 @@ namespace NewsBlog.Controllers
                 if (!string.IsNullOrEmpty(tagString))
                 {
                     articles = articles.Where(s => s.Tags
-                        .Any(t => t.TagName == tagString)).ToList();
+                        .Any(t => Convert.ToString(t.Id) == tagString)).ToList();
                 }
 
                 if (!string.IsNullOrEmpty(tagString) && !string.IsNullOrEmpty(searchString))
@@ -85,7 +87,8 @@ namespace NewsBlog.Controllers
                 {
                     PageInfo = pageInfo,
                     BlogItems = articlesPerPAge,
-                    Category = new SelectList(_db.Categories, "Id", "Name")
+                    Category = new SelectList(_db.Categories, "Id", "Name"),
+                    Tag = new MultiSelectList(_db.Tags, "Id","TagName")
                 };
 
                 return pvm;
@@ -97,6 +100,7 @@ namespace NewsBlog.Controllers
         }
 
         private readonly BlogContext _db = new BlogContext();
+        private readonly ApplicationContext _appCont = new ApplicationContext();
         private readonly BlogService _blogService;
 
         public HomeController(DbContext dbContext)
@@ -108,6 +112,7 @@ namespace NewsBlog.Controllers
         {
             var dryView = Test(startDate, endDate, tagString, searchString, page);
             ViewBag.Categories = _db.Categories.ToList();
+            ViewBag.Tags = _db.Tags.ToList();
             return View(dryView);
         }
 
@@ -256,6 +261,30 @@ namespace NewsBlog.Controllers
             ViewBag.Tags = _db.Tags.ToList();
 
             return View(item);
+        }
+
+        [HttpGet]
+        public ActionResult CreateComment()
+        {
+            ViewBag.BlogItem = _db.BlogItems;
+            return View();
+        }
+
+        [HttpPost , ActionName ("CreateComment")]
+        public ActionResult NewComment(Comment comment,int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = User.Identity.GetUserId();
+                _ = new ApplicationUser();
+                ApplicationUser appUser = _appCont.Users.Find(user);
+                comment.UserName = appUser.UserName;
+                comment.NewsId = id;
+                _blogService.AddComment(comment);
+                return RedirectToAction("Admin");
+                
+            }
+            return View();
         }
 
         [HandleError(ExceptionType = typeof(ArgumentNullException), View = "NullError")]

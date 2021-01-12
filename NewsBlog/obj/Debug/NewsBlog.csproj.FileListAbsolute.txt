@@ -136,3 +136,12 @@ C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\obj\Debug\NewsBlog.Migrations.oneTo
 C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\obj\Debug\NewsBlog.Migrations.oneToManyFinal.resources
 C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\obj\Debug\NewsBlog.Migrations.oneToManyFinalv01.resources
 C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\obj\Debug\NewsBlog.Migrations.FinalModel.resources
+C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\obj\Debug\NewsBlog.csproj.CoreCompileInputs.cache
+C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\obj\Debug\NewsBlog.Migrations.AddComment.resources
+C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\obj\Debug\NewsBlog.Migrations.drop_old_comment.resources
+C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\obj\Debug\NewsBlog.Migrations.Create_comment.resources
+C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\obj\Debug\NewsBlog.Migrations.Create_comment_1.resources
+C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\obj\Debug\NewsBlog.Migrations.Create_comment_2.resources
+C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\obj\Debug\NewsBlog.Migrations.RefComment.resources
+C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\obj\Debug\NewsBlog.Migrations.RefComment1.resources
+C:\Users\DIMA\source\repos\NewsBlog\NewsBlog\obj\Debug\NewsBlog.Migrations.RefComment2.resources

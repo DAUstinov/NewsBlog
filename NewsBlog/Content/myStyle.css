@@ -1,0 +1,36 @@
+﻿.avatar {
+    margin-left: 5px;
+    margin-top: 5px;
+    float: left;
+    width: 25%;
+    height: 90%;
+}
+
+.comment {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid black;
+    border-color: #000000;
+    width: 100%;
+    float: left;
+    height: 150px;
+    border-radius: 12px;
+}
+
+.nickname {
+    border-bottom: 2px solid black;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-top: 5px;
+    float: left;
+    width: 74%;
+    height: 15%;
+}
+
+.comment__content {
+    margin-left: 5px;
+    margin-top: 5px;
+    float: left;
+    width: 74%;
+    height: 75%;
+}
